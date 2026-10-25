@@ -52,8 +52,12 @@ fun DeviceLinksRow(
     modifier: Modifier = Modifier,
 ) {
     val links = buildList {
-        add(DeviceLink(R.drawable.ic_link_telegram, R.string.updater_link_telegram, metadata.telegram))
-        add(DeviceLink(R.drawable.ic_link_donate, R.string.updater_link_donate, metadata.paypal))
+        metadata.telegram.takeIf(String::isNotBlank)?.let {
+            add(DeviceLink(R.drawable.ic_link_telegram, R.string.updater_link_telegram, it))
+        }
+        metadata.paypal.takeIf(String::isNotBlank)?.let {
+            add(DeviceLink(R.drawable.ic_link_donate, R.string.updater_link_donate, it))
+        }
         metadata.forum?.takeIf(String::isNotBlank)?.let {
             add(DeviceLink(R.drawable.ic_link_forum, R.string.updater_link_forum, it))
         }
